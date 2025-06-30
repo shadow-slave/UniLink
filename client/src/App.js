@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import PrivateRoute from "./components/PrivateRoute";
+import CreatePost from "./pages/CreatePost";
+import PostFeed from "./pages/PostFeed";
 
 function App() {
   return (
@@ -17,6 +19,15 @@ function App() {
             </PrivateRoute>
           }
         />
+        <Route
+          path="/create"
+          element={
+            <PrivateRoute>
+              <CreatePost />
+            </PrivateRoute>
+          }
+        />
+        <Route path="/feed" element={<PostFeed />} />
       </Routes>
     </BrowserRouter>
   );
