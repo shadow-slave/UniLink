@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import "../styles/CreatePost.css"; 
 const CreatePost = () => {
   const [formData, setFormData] = useState({ title: "", content: "" });
   const [message, setMessage] = useState("");
@@ -33,10 +33,10 @@ const CreatePost = () => {
   };
 
   return (
-    <div>
+    <div className="create-post-container">
       <h2>Create a Post</h2>
       {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-post-form">
         <input
           type="text"
           name="title"

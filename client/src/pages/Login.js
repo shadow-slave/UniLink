@@ -30,10 +30,11 @@ const Login = () => {
   };
 
   return (
-    <div>
+    <div className="body">
+    <div className="form-container">
       <h2>Login</h2>
       {message && <p>{message}</p>}
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="form">
         <input
           type="email"
           name="email"
@@ -52,6 +53,7 @@ const Login = () => {
         />
         <button type="submit">Login</button>
       </form>
+    </div>
     </div>
   );
 };

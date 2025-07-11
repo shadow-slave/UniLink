@@ -1,0 +1,99 @@
+:root {
+  --primary-bg: #64b8ec;
+  --form-bg: rgba(255, 255, 255, 0.15);
+  --text-dark: #2b2b2b;
+  --accent-green: #3cf148;
+  --btn-bg: #78ae6b;
+  --btn-hover: #21a21b9e;
+  --input-border: #ccc;
+  --font-body: 'Arial', sans-serif;
+  --font-form: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.body {
+  font-family: var(--font-body);
+  background: url('../../public/bg1.jpg') no-repeat center;
+  background-size: cover;
+  color: #fff;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  line-height: 1.6;
+}
+
+/* 🧊 Glassy, elevated form container */
+.form-container {
+  max-width: 25rem;
+  margin: 4rem auto;
+  padding: 2rem;
+  border-radius: 16px;
+  background: var(--form-bg);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-family: var(--font-form);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.form-container:hover {
+  transform: scale(1.01);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.3);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #fff;
+}
+
+/* 🧩 Form layout */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.form input {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: transparent;
+  color: #fff;
+  border: none;
+  border-bottom: 2px solid var(--input-border);
+  transition: all 0.3s ease;
+}
+
+.form input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.form input:focus {
+  border-color: var(--accent-green);
+  outline: none;
+  transform: scale(1.02);
+}
+
+/* 🟢 CTA Button */
+.form button {
+  padding: 0.75rem;
+  font-size: 1rem;
+  background-color: var(--btn-bg);
+  color: #f9f9f9;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.form button:hover {
+  background-color: var(--btn-hover);
+  transform: translateY(-2px);
+}
+
+.form-container p {
+  color: #f1f1f1;
+  text-align: center;
+  font-weight: bold;
+}
