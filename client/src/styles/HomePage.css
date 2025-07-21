@@ -1,0 +1,113 @@
+/* src/styles/HomePage.css */
+
+/* Global Home Page Wrapper */
+.home-page-wrapper {
+    min-height: calc(100vh - 60px); /* Adjust for Navbar height, assuming Navbar is 60px tall */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Pushes footer to the bottom */
+    font-family: 'Inter', sans-serif;
+    background-color: #f0f2f5; /* Light background for the page */
+}
+
+/* Hero Section Styling */
+.hero-section {
+    display: flex;
+    flex-direction: column; /* Default to column on mobile */
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #e0f7fa, #bbdefb); /* Soft gradient background */
+    color: #333;
+    text-align: center;
+    flex-grow: 1; /* Allows it to take up available space */
+}
+
+.hero-content {
+    max-width: 700px;
+    margin-bottom: 2rem;
+}
+
+.hero-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3.5rem; /* Large and inviting title */
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #1a237e; /* Deep blue for title */
+    line-height: 1.2;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    line-height: 1.6;
+    margin-bottom: 2.5rem;
+    color: #424242;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #007bff; /* Primary blue for CTA */
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: 50px; /* Pill-shaped button */
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
+}
+
+.cta-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
+}
+
+.hero-image-container {
+    max-width: 500px;
+    width: 100%;
+}
+
+.hero-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+
+/* Desktop View (larger screens) */
+@media (min-width: 768px) {
+    .hero-section {
+        flex-direction: row; /* Row layout on desktop */
+        text-align: left;
+        padding: 6rem 4rem; /* More padding on desktop */
+    }
+
+    .hero-content {
+        margin-right: 3rem; /* Space between text and image */
+        margin-bottom: 0; /* Remove bottom margin */
+    }
+
+    .hero-title {
+        font-size: 4.5rem; /* Even larger title on desktop */
+    }
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 480px) {
+    .hero-section {
+        padding: 3rem 1.5rem;
+    }
+    .hero-title {
+        font-size: 2.8rem;
+    }
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+    .cta-button {
+        padding: 0.8rem 2rem;
+        font-size: 1rem;
+    }
+}

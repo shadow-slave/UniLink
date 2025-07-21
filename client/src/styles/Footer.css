@@ -1,0 +1,13 @@
+/* src/styles/Footer.css */
+.app-footer {
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    position: relative; /* Changed from fixed, depends on overall layout */
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Inter', sans-serif; /* Consistent font */
+}
