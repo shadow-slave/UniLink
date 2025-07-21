@@ -1,21 +1,25 @@
+// server/middleware/authMiddleware.js
 import jwt from "jsonwebtoken";
 
 const authMiddleware = (req, res, next) => {
-  const token = req.headers.authorization;
+  const authHeader = req.headers.authorization;
+  // Expected format: "Bearer TOKEN"
+  const token = authHeader && authHeader.split(" ")[1];
 
-  if (!token)
-    return res.status(401).json({ error: "Access denied. No token provided." });
+  if (!token) {
+    // No token provided [cite: 1569]
+    return res.status(401).json({ error: "Access denied. No token provided." }); // [cite: 1569, 3654]
+  }
 
   try {
+    // Verify the token using your JWT_SECRET [cite: 1572]
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.userId = decoded.id;
-    next();
+    req.userId = decoded.id; // Assign the user ID from the token payload to req.userId [cite: 1573, 3658]
+    next(); // Proceed to the next middleware or route handler [cite: 3659]
   } catch (err) {
-    res.status(400).json({ error: "Invalid token." });
+    // Token is invalid or expired [cite: 1576]
+    return res.status(400).json({ error: "Invalid token." }); // [cite: 1576, 3661]
   }
 };
 
 export default authMiddleware;
-// This middleware checks for a JWT in the request headers, verifies it, and attaches the user ID to the request object if valid. If the token is missing or invalid, it sends an appropriate error response. This is useful for protecting routes that require authentication.
-// It is typically used in Express.js applications to secure API endpoints, ensuring that only authenticated users can access certain resources or perform specific actions. The middleware can be applied to routes that require user authentication, allowing the application to enforce security measures effectively.
-// The middleware can be applied to routes that require user authentication, allowing the application to enforce security measures effectively. For example, it can be used in a route handler like this:

@@ -1,7 +1,7 @@
 // src/pages/Dashboard.js
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import "../styles/Dashboard.css"; // We will create this CSS file next
+import "../styles/Dashboard.css";
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
@@ -10,36 +10,40 @@ const Dashboard = () => {
 
   useEffect(() => {
     const fetchUserProfile = async () => {
-      const token = localStorage.getItem("token");
-      if (!token) {
+      const token = localStorage.getItem("token"); // Get token from local storage
+      console.log(
+        "Dashboard: Token read from localStorage:",
+        token ? "Found" : "NOT Found"
+      ); // <-- DEBUG LOG
+
+      // Check if token is null/undefined OR an empty string
+      if (!token || token === "") {
         setError("No token found. Please log in.");
         setLoading(false);
         return;
       }
 
       try {
-        // You'll need to create a backend API endpoint for fetching user profile
-        // For now, we'll assume a /api/user/profile route
-        // This is a placeholder; modify as per your actual backend setup for user profiles.
-        // If your login response already returns all user details, you might store them
-        // in localStorage or a context and retrieve them directly without an extra API call.
         const res = await axios.get("http://localhost:5000/api/auth/profile", {
-          // Assuming a /api/auth/profile endpoint
           headers: {
-            Authorization: token,
+            // FIX: Add "Bearer " prefix as required by backend authMiddleware
+            Authorization: `Bearer ${token}`, // Corrected Authorization header
           },
         });
-        setUser(res.data.user); // Assuming user data is under .user
+        setUser(res.data.user); // Assuming user data is under .user property
         setLoading(false);
       } catch (err) {
         console.error("Failed to fetch user profile:", err);
-        setError("Failed to load profile. Please try again.");
+        setError(
+          err.response?.data?.error ||
+            "Failed to load profile. Please try again."
+        );
         setLoading(false);
       }
     };
 
     fetchUserProfile();
-  }, []);
+  }, []); // Empty dependency array means this runs once on component mount
 
   if (loading) {
     return (
@@ -87,7 +91,6 @@ const Dashboard = () => {
             </div>
           )}
         </div>
-        {/* You can add more dashboard features here */}
         <section className="dashboard-sections">
           <h3>Your Recent Activity (Coming Soon!)</h3>
           <p>

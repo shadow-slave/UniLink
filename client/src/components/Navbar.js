@@ -12,10 +12,14 @@ const Navbar = () => {
 
   return (
     <nav className="navbar">
-      <Link to="/feed" className="navbar-brand">
+      <Link to="/" className="navbar-brand">
         UniLink
       </Link>
       <div className="navbar-links">
+        <Link to="/feed" className="nav-item">
+          Feed
+        </Link>
+
         {!token ? (
           <>
             <Link to="/login" className="nav-item">

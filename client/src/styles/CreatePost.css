@@ -1,70 +1,128 @@
-
+/* src/styles/CreatePost.css - Example (adjust as needed to match your design) */
 
 .create-post-container {
     max-width: 600px;
-    margin: 100px auto;
-    padding: 2rem;
+    margin: 50px auto; /* Adjust margin to accommodate Navbar */
+    padding: 2.5rem;
     background-color: #ffffff;
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .create-post-container h2 {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box; /* Important */
+}
+
+.create-post-container h2 {
+    font-family: 'Poppins', sans-serif;
     text-align: center;
-    margin-bottom: 1.5rem;
     color: #333;
-  }
-  
-  .create-post-container p {
-    text-align: center;
-    font-weight: bold;
-    color: green;
-    margin-bottom: 1rem;
-  }
-  
-  .create-post-form {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+}
+
+.create-post-form {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-  }
-  
-  .create-post-form input,
-  .create-post-form textarea {
-    resize: vertical;
-    min-height: 50px;
+    gap: 1.5rem; /* Spacing between form elements */
+}
 
-    padding: 0.75rem;
+/* Consistent input group styling */
+.input-group {
+    position: relative;
+    margin-bottom: 0.5rem; /* Adjust if gap is too large */
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: #555;
+    margin-bottom: 0.3rem;
+    font-weight: 500;
+}
+
+.create-post-form input[type="text"],
+.create-post-form textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
     font-size: 1rem;
-    background-color: transparent;
-    border-top: none;
-    border-left: none;
-    border-right  : none;
-    border-bottom: 2px solid #ccc;
-    transition: border 0.2s;
-  }
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box; /* Crucial for consistent width */
+    transition: all 0.3s ease;
+}
 
-  .create-post-form input:focus,textarea:focus {
-    border-color: #3cf148;
-    outline: none;
-  }
-  
-  .create-post-form textarea {
+.create-post-form textarea {
     min-height: 120px;
-  }
-  
-  .create-post-form button {
-    padding: 0.75rem;
-    font-size: 1rem;
-    background-color: #78ae6b;
+    resize: vertical;
+}
+
+.create-post-form input:focus,
+.create-post-form textarea:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.create-post-form button {
+    background-color: #28a745; /* Green submit button */
     color: white;
     border: none;
-    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .create-post-form button:hover {
-    background-color: #21a21b9e;
-  }
-  
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 1rem;
+}
+
+.create-post-form button:hover:not(:disabled) {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+.create-post-form button:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+/* Message styling (consistent with registerLogin.css) */
+.message-success {
+    color: #28a745; /* Green */
+    background-color: #d4edda; /* Light green */
+    padding: 0.7rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid #28a745;
+}
+
+.message-error {
+    color: #dc3545; /* Red */
+    background-color: #f8d7da; /* Light red */
+    padding: 0.7rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 500;
+    border: 1px solid #dc3545;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .create-post-container {
+        padding: 2rem;
+        margin: 20px auto;
+    }
+    .create-post-container h2 {
+        font-size: 1.8rem;
+    }
+}
+@media (max-width: 480px) {
+    .create-post-container {
+        padding: 1.5rem;
+    }
+}
