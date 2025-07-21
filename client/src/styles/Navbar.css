@@ -1,0 +1,107 @@
+/* src/components/Navbar.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2.5rem; /* Increased padding */
+    background-color: #ffffff; /* White background */
+    border-bottom: 1px solid #e0e0e0; /* Subtle border */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Softer shadow */
+    font-family: 'Inter', sans-serif; /* Modern font, consider adding Google Fonts */
+    position: sticky; /* Make it sticky at the top */
+    top: 0;
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+.navbar-brand {
+    color: #333; /* Darker text for brand */
+    font-size: 1.8rem; /* Slightly larger */
+    font-weight: 700; /* Bolder */
+    text-decoration: none;
+    letter-spacing: -0.5px; /* Tighter letter spacing */
+    transition: color 0.3s ease;
+}
+
+.navbar-brand:hover {
+    color: #007bff; /* Primary color on hover */
+}
+
+.navbar-links {
+    display: flex;
+    gap: 1.5rem; /* Consistent spacing */
+    align-items: center;
+}
+
+.nav-item {
+    color: #555; /* Neutral text color */
+    text-decoration: none;
+    font-size: 1rem; /* Standard font size */
+    padding: 0.6rem 1rem; /* Adjusted padding */
+    border-radius: 6px; /* Slightly rounded corners */
+    transition: all 0.3s ease; /* Smooth transitions for all properties */
+    font-weight: 500; /* Medium weight */
+}
+
+.nav-item:hover {
+    background-color: #f0f0f0; /* Light background on hover */
+    color: #007bff; /* Primary color on hover */
+}
+
+/* Specific style for primary action buttons like "Sign Up" */
+.nav-button-primary {
+    background-color: #007bff; /* Primary blue background */
+    color: white; /* White text */
+    padding: 0.7rem 1.2rem; /* More prominent padding */
+    border-radius: 8px; /* More rounded */
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2); /* Soft blue shadow */
+    font-weight: 600; /* Stronger font weight */
+}
+
+.nav-button-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+    box-shadow: 0 6px 16px rgba(0, 123, 255, 0.3); /* More pronounced shadow on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+    color: white; /* Keep text white on hover */
+}
+
+/* Styling for the Logout button */
+.nav-button {
+    background: none;
+    border: 1px solid #dc3545; /* Red border */
+    color: #dc3545; /* Red text */
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-button:hover {
+    background-color: #dc3545; /* Red background on hover */
+    color: white; /* White text on hover */
+    transform: translateY(-2px);
+}
+
+/* Basic responsiveness for smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem 1.5rem;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .nav-item, .nav-button-primary, .nav-button {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1rem;
+    }
+}
