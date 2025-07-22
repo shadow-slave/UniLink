@@ -129,6 +129,9 @@
 
 /* Media Query for Smaller Devices (Mobile Layout) */
 @media (max-width: 768px) {
+    body{
+        overflow-x: hidden;
+    }
     .navbar {
         flex-direction: row; /* Keep brand and burger on one row */
         justify-content: space-between; /* Push brand and burger apart */
@@ -189,6 +192,9 @@
 
 /* Smaller mobile devices (adjust if needed, usually managed by 768px) */
 @media (max-width: 480px) {
+    body{
+        overflow-x: hidden;
+    }
     .navbar {
         padding: 0.8rem 1rem;
     }

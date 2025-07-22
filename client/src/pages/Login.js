@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { loginUser } from "../services/authService";
 import { useNavigate, Link } from "react-router-dom"; // Make sure Link is included
 const Login = () => {
@@ -9,6 +9,13 @@ const Login = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false); // New state to track if message is an error
   const navigate = useNavigate(); // Initialize useNavigate
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home"); // Redirect to dashboard if token exists
+    }
+  }, [navigate]);
 
   const handleChange = (e) => {
     setFormData((prev) => ({

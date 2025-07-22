@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { registerUser } from "../services/authService";
 import { useNavigate, Link } from "react-router-dom"; // Import useNavigate and Link
 import "../styles/registerLogin.css"; // Ensure this import is correct
@@ -13,6 +13,13 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false); // New state to track if message is an error
   const navigate = useNavigate(); // Initialize useNavigate for redirection
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home"); // Redirect to dashboard if token exists
+    }
+  }, [navigate]);
 
   // Form validation to enable/disable button
   const isFormValid = formData.name && formData.email && formData.password;

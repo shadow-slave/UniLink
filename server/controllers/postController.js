@@ -69,7 +69,12 @@ export const likeUnlikePost = async (req, res) => {
     }
 
     await post.save(); // Save the updated post with new likes array
-    res.status(200).json({ message: "Like status updated", post }); // Respond with the updated post
+    const updatedPost = await Post.findById(post._id).populate(
+          "author",
+          "name email"
+        );
+
+    res.status(200).json({ message: "Like status updated", post:updatedPost }); // Respond with the updated post
   } catch (err) {
     // [cite: 1597]
     console.error("Error liking/unliking post:", err); // [cite: 1598]
