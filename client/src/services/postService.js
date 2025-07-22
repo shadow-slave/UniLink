@@ -32,3 +32,7 @@ export const addCommentToPost = (postId, commentData) =>
   API.post(`/posts/${postId}/comments`, commentData);
 export const fetchCommentsForPost = (postId) =>
   API.get(`/posts/${postId}/comments`);
+
+// API calls for user's own posts and comments
+export const fetchMyPosts = () => API.get("/posts/my-posts");
+export const fetchMyComments = () => API.get("/posts/my-comments");

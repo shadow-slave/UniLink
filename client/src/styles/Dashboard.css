@@ -52,7 +52,7 @@
     background-color: #f8d7da;
 }
 
-.no-user-message {
+.no-user-message, .no-items-message {
     color: #6c757d;
     background-color: #e9ecef;
 }
@@ -89,19 +89,75 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* Common styles for dashboard sections */
+.dashboard-sections {
+    margin-bottom: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
 .dashboard-sections h3 {
     font-family: 'Poppins', sans-serif;
     color: #007bff;
     font-size: 1.6rem;
-    margin-top: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     border-bottom: 2px solid #e9ecef;
     padding-bottom: 0.5rem;
+    text-align: center;
 }
 
 .dashboard-sections p {
     color: #6c757d;
     font-style: italic;
+    text-align: center;
+}
+
+/* Styles for user's posts/comments lists */
+.my-items-list {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid for items */
+}
+
+.my-item-card {
+    background-color: #fefefe;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.my-item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.post-item h4 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.item-content {
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+}
+
+.item-meta {
+    font-size: 0.8rem;
+    color: #777;
+    display: block; /* Ensures it takes full width */
+    text-align: right;
+}
+
+/* Specific styling for comment items */
+.comment-item {
+    border-left: 4px solid #007bff; /* Accent border for comments */
+    padding-left: 1rem;
 }
 
 /* Responsive adjustments */
@@ -117,5 +173,8 @@
     }
     .profile-details, .dashboard-sections {
         padding: 1rem;
+    }
+    .my-items-list {
+        grid-template-columns: 1fr; /* Single column on smaller screens */
     }
 }

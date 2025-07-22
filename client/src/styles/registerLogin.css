@@ -1,3 +1,5 @@
+/* src/styles/registerLogin.css */
+
 /* Import Google Fonts for a modern look */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
@@ -8,15 +10,15 @@
   --accent-green: #3cf148;
   --text-dark: #2b2b2b;
   --background-light: #f4f7f6; /* A very light grey background */
-  --glass-bg: rgba(255, 255, 255, 0.15); /* Slightly less opaque for better blur */
-  --input-border-light: rgba(255, 255, 255, 0.5); /* Lighter border for inputs */
+  --glass-bg: rgba(255, 255, 255, 0.1); /* Slightly more transparent for better backdrop blur effect */
+  --input-border-light: rgba(255, 255, 255, 0.6); /* Slightly more prominent light border */
   --input-focus-border: var(--accent-green);
   --button-primary-bg: #28a745; /* A strong green for main actions */
   --button-primary-hover: #218838;
   --error-color: #dc3545; /* Standard red for errors */
   --success-color: #28a745; /* Standard green for success */
-  --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.1);
-  --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.2);
+  --shadow-light: 0 6px 20px rgba(0, 0, 0, 0.1); /* Slightly softer light shadow */
+  --shadow-deep: 0 12px 40px rgba(0, 0, 0, 0.3); /* Deeper shadow for more depth */
   --font-heading: 'Poppins', sans-serif;
   --font-body: 'Inter', sans-serif;
 }
@@ -26,177 +28,211 @@
   font-family: var(--font-body);
   background: url('../../public/bg1.jpg') no-repeat center center;
   background-size: cover;
-  min-height: 100vh; /* Use min-height to cover full viewport even with small content */
-  display: flex; /* Use flexbox for easy centering */
+  min-height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  overflow: hidden; /* Prevent scrollbar if content slightly exceeds viewport */
-  padding: 20px; /* Add some padding for smaller screens */
-  box-sizing: border-box; /* Include padding in element's total width and height */
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+
+  /* Overlay for better text readability on background image */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3); /* Darker overlay */
+    z-index: 0; /* Ensure it's behind the form */
+  }
 }
 
 /* Glassy, elevated form container */
 .login-form-container {
-  max-width: 26rem; /* Slightly wider */
-  width: 100%; /* Ensure it takes full width up to max-width */
-  padding: 2.5rem; /* Increased padding */
-  border-radius: 20px; /* More rounded corners */
+  max-width: 28rem; /* Slightly wider for better content flow */
+  width: 100%;
+  padding: 3rem; /* Increased padding */
+  border-radius: 25px; /* More rounded corners */
   background: var(--glass-bg);
-  box-shadow: var(--shadow-deep); /* Deeper shadow for more depth */
-  backdrop-filter: blur(12px) saturate(180%); /* Stronger blur and saturation */
-  -webkit-backdrop-filter: blur(12px) saturate(180%); /* For Safari */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Slightly more prominent border */
-  color: #fff; /* White text for contrast */
+  box-shadow: var(--shadow-deep);
+  backdrop-filter: blur(15px) saturate(200%); /* Stronger blur and saturation */
+  -webkit-backdrop-filter: blur(15px) saturate(200%); /* For Safari */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* Slightly more prominent border */
+  color: #fff;
   font-family: var(--font-body);
-  transition: all 0.4s ease-in-out; /* Smoother transitions */
+  transition: all 0.5s ease-in-out; /* Smoother transitions */
   position: relative;
-  z-index: 1; /* Ensure it's above potential background animations */
+  z-index: 1; /* Ensure it's above the overlay */
 }
 
 .login-form-container:hover {
-  transform: translateY(-5px) scale(1.005); /* Subtle lift and slight scale */
-  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35); /* More pronounced shadow on hover */
+  transform: translateY(-8px) scale(1.005); /* More noticeable lift */
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.4); /* More pronounced shadow on hover */
 }
 
 .login-form-container h2 {
   font-family: var(--font-heading);
   text-align: center;
-  margin-bottom: 2rem; /* More space below heading */
+  margin-bottom: 2.5rem; /* More space below heading */
   color: #fff;
-  font-size: 2rem; /* Larger heading */
-  font-weight: 600;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle text shadow */
+  font-size: 2.2rem; /* Larger heading */
+  font-weight: 700; /* Bolder heading */
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.3); /* Deeper text shadow */
 }
 
 /* Form layout */
 .login-form {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem; /* Reduced gap slightly for compactness */
+  gap: 1.8rem; /* Increased gap for better spacing */
 }
 
 /* Input Group for labels and inputs */
 .input-group {
   position: relative;
-  margin-bottom: 1rem; /* Space between input groups */
+  margin-bottom: 0.5rem; /* Reduced external margin if gap handles spacing */
 }
 
 .input-group label {
   display: block;
-  font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.8);
-  margin-bottom: 0.3rem;
+  font-size: 0.95rem; /* Slightly larger label */
+  color: rgba(255, 255, 255, 0.9); /* Brighter label color */
+  margin-bottom: 0.5rem; /* More space below label */
   font-weight: 500;
+  transition: color 0.3s ease; /* Smooth transition for label color */
 }
 
 .login-form input {
-  width: 100%; /* Full width */
-  padding: 0.9rem 1.2rem; /* Increased padding */
+  width: 100%;
+  padding: 1rem 1.4rem; /* Increased padding */
   font-size: 1rem;
-  background-color: rgba(255, 255, 255, 0.1); /* Very subtle background for inputs */
+  background-color: rgba(255, 255, 255, 0.15); /* Slightly brighter background for inputs */
   color: #fff;
-  border: 1px solid var(--input-border-light); /* Initial light border */
-  border-radius: 8px; /* Rounded input fields */
+  border: 1px solid var(--input-border-light);
+  border-radius: 10px; /* More rounded input fields */
   transition: all 0.3s ease;
-  box-sizing: border-box; /* Ensures padding doesn't increase width */
+  box-sizing: border-box;
 }
 
 .login-form input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7); /* Slightly brighter placeholder */
 }
 
 .login-form input:focus {
   border-color: var(--input-focus-border);
   outline: none;
-  background-color: rgba(255, 255, 255, 0.2); /* Slightly brighter on focus */
-  box-shadow: 0 0 0 3px rgba(60, 241, 72, 0.3); /* Glow effect on focus */
+  background-color: rgba(255, 255, 255, 0.25); /* More distinct background on focus */
+  box-shadow: 0 0 0 4px rgba(60, 241, 72, 0.4); /* Stronger glow effect on focus */
+  transform: translateY(-2px); /* Subtle lift on focus */
 }
 
 /* CTA Button */
 .login-button {
   width: 100%;
-  padding: 1rem; /* More prominent padding */
-  font-size: 1.1rem; /* Larger text for button */
+  padding: 1.1rem; /* More prominent padding */
+  font-size: 1.2rem; /* Larger text for button */
   background-color: var(--button-primary-bg);
-  color: #fff; /* White text */
+  color: #fff;
   border: none;
-  border-radius: 10px; /* More rounded button */
+  border-radius: 12px; /* More rounded button */
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
-  font-weight: 600; /* Bolder button text */
-  margin-top: 1.5rem; /* More space above button */
-  letter-spacing: 0.5px;
+  font-weight: 600;
+  margin-top: 2rem; /* More space above button */
+  letter-spacing: 0.8px; /* Slightly wider letter spacing */
 }
 
 .login-button:hover {
   background-color: var(--button-primary-hover);
-  transform: translateY(-3px); /* More noticeable lift */
-  box-shadow: 0 8px 20px rgba(40, 167, 69, 0.4); /* Green shadow on hover */
+  transform: translateY(-5px); /* More noticeable lift */
+  box-shadow: 0 10px 25px rgba(40, 167, 69, 0.5); /* Stronger green shadow on hover */
 }
 
 .login-button:active {
-  transform: translateY(0); /* Press down effect */
+  transform: translateY(0);
   box-shadow: none;
 }
+
+.login-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+  box-shadow: none;
+}
+
 
 /* Message styling */
 .message-success {
   color: var(--success-color);
-  background-color: rgba(40, 167, 69, 0.1); /* Light green background */
-  padding: 0.7rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  background-color: rgba(40, 167, 69, 0.15); /* Slightly more opaque background */
+  padding: 1rem; /* Increased padding */
+  border-radius: 10px; /* More rounded */
+  margin-bottom: 2rem; /* More space below message */
   text-align: center;
   font-weight: 500;
   border: 1px solid var(--success-color);
+  box-shadow: 0 2px 8px rgba(40, 167, 69, 0.2); /* Subtle shadow */
 }
 
 .message-error {
   color: var(--error-color);
-  background-color: rgba(220, 53, 69, 0.1); /* Light red background */
-  padding: 0.7rem;
-  border-radius: 8px;
-  margin-bottom: 1.5rem;
+  background-color: rgba(220, 53, 69, 0.15); /* Slightly more opaque background */
+  padding: 1rem; /* Increased padding */
+  border-radius: 10px; /* More rounded */
+  margin-bottom: 2rem; /* More space below message */
   text-align: center;
   font-weight: 500;
   border: 1px solid var(--error-color);
+  box-shadow: 0 2px 8px rgba(220, 53, 69, 0.2); /* Subtle shadow */
 }
 
 /* Signup prompt */
 .signup-prompt {
   text-align: center;
-  margin-top: 1.5rem;
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.9);
+  margin-top: 2rem; /* More space above prompt */
+  font-size: 1rem; /* Slightly larger font */
+  color: rgba(255, 255, 255, 0.95); /* Brighter color */
 }
 
 .signup-prompt a {
-  color: var(--primary-color); /* Use primary color for link */
+  color: var(--primary-color);
   text-decoration: none;
   font-weight: 600;
-  transition: color 0.3s ease;
+  transition: color 0.3s ease, text-shadow 0.3s ease; /* Add text-shadow transition */
 }
 
 .signup-prompt a:hover {
-  color: var(--accent-green); /* Accent color on hover for link */
+  color: var(--accent-green);
   text-decoration: underline;
+  text-shadow: 0 0 5px rgba(60, 241, 72, 0.5); /* Subtle glow on hover */
 }
 
 /* Responsive adjustments */
 @media (max-width: 480px) {
   .login-form-container {
-    margin: 2rem auto;
-    padding: 1.5rem;
+    margin: 1.5rem auto;
+    padding: 2rem 1.5rem; /* Adjust padding for smaller screens */
+    border-radius: 15px; /* Slightly less rounded */
   }
 
   .login-form-container h2 {
-    font-size: 1.7rem;
-    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.8rem;
   }
 
   .login-button {
+    padding: 0.9rem;
+    font-size: 1.05rem;
+  }
+  .message-success, .message-error {
     padding: 0.8rem;
-    font-size: 1rem;
+    font-size: 0.9rem;
+  }
+  .signup-prompt {
+    font-size: 0.9rem;
   }
 }

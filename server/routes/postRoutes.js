@@ -6,6 +6,8 @@ import {
   likeUnlikePost,
   addComment,
   getCommentsForPost,
+  getMyPosts, 
+  getMyComments,
 } from "../controllers/postController.js";
 import authMiddleware from "../middleware/authMiddleware.js"; // Import authentication middleware
 
@@ -22,5 +24,10 @@ router.post("/:id/like", authMiddleware, likeUnlikePost);
 // Comment routes
 router.post("/:id/comments", authMiddleware, addComment); // Add comment (protected)
 router.get("/:id/comments", getCommentsForPost); // Get comments for a post (public)
+
+// Protected routes for Dashboard
+
+router.get("/my-posts", authMiddleware, getMyPosts);     // Get posts by the authenticated user
+router.get("/my-comments", authMiddleware, getMyComments); // Get comments by the authenticated user
 
 export default router;

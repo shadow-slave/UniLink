@@ -24,13 +24,13 @@ export const createPost = async (req, res) => {
 
 // Get all posts, populated with author details
 export const getAllPosts = async (_req, res) => {
-  console.log("Attempting to fetch all posts...");
+  // console.log("Attempting to fetch all posts...");
   try {
     // Populate author name and email [cite: 1603]
     const posts = await Post.find()
       .populate("author", "name email") // Populates the 'author' field from the 'User' collection
       .sort({ createdAt: -1 }); // Sort by newest first
-    console.log("Posts fetched successfully:", posts.length);
+    // console.log("Posts fetched successfully:", posts.length);
     res.status(200).json(posts);
   } catch (err) {
     // [cite: 1604]
@@ -133,5 +133,33 @@ export const getCommentsForPost = async (req, res) => {
   } catch (err) {
     console.error("Error fetching comments:", err);
     res.status(500).json({ error: "Failed to fetch comments." });
+  }
+};
+
+export const getMyPosts = async (req, res) => {
+  try {
+    const userId = req.userId; // User ID from authMiddleware
+    const posts = await Post.find({ author: userId })
+      .populate("author", "name email")
+      .sort({ createdAt: -1 });
+    res.status(200).json({ myPosts: posts });
+  } catch (err) {
+    console.error("Error fetching user's posts:", err);
+    res.status(500).json({ error: "Failed to fetch your posts." });
+  }
+};
+
+// NEW: Get all comments created by the authenticated user
+export const getMyComments = async (req, res) => {
+  try {
+    const userId = req.userId; // User ID from authMiddleware
+    const comments = await Comment.find({ author: userId })
+      .populate("post", "title") // Populate post title for context
+      .populate("author", "name email") // Populate author details (even though it's "me")
+      .sort({ createdAt: -1 });
+    res.status(200).json({ myComments: comments });
+  } catch (err) {
+    console.error("Error fetching user's comments:", err);
+    res.status(500).json({ error: "Failed to fetch your comments." });
   }
 };
