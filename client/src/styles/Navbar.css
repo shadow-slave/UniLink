@@ -1,24 +1,28 @@
 /* src/components/Navbar.css */
 
+/* Import Google Fonts for consistency */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+
 .navbar {
     display: flex;
-    justify-content:space-around;
+    justify-content: space-between; /* Space out brand and links */
     align-items: center;
-    min-height: 60px; /* Ensures a consistent height */
+    min-height: 60px;
     padding: 1rem 2.5rem;
-    background-color: rgba(255, 255, 255, 0.98); /* Slightly transparent white */
+    background-color: rgba(255, 255, 255, 0.98); /* Slightly transparent white for glassy effect */
     border-bottom: 1px solid #e0e0e0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer, slightly more spread shadow */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     font-family: 'Inter', sans-serif;
     position: sticky;
     top: 0;
-    z-index: 1000;
-    backdrop-filter: blur(5px); /* Subtle blur for the glassy effect */
-    -webkit-backdrop-filter: blur(5px); /* For Safari */
+    z-index: 1000; /* Ensure navbar stays on top of other content */
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
 }
 
 .navbar-brand {
-    justify-self:flex-end;
     color: #333;
     font-size: 1.8rem;
     font-weight: 700;
@@ -86,24 +90,122 @@
     transform: translateY(-2px);
 }
 
+/* Burger Menu Styling (Hidden by default on desktop) */
+.burger-menu {
+    display: none; /* Hide on large screens */
+    cursor: pointer;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    z-index: 1001; /* Ensure burger menu is above other elements when open */
+}
+
+.burger-menu div {
+    width: 100%;
+    height: 3px;
+    background: #333; /* Color of the burger lines */
+    border-radius: 5px;
+    transition: all 0.3s linear; /* Smooth animation for lines */
+    transform-origin: 1px; /* Helps with rotation transformation */
+}
+
+/* Burger Menu Animation (When 'open' class is applied by JS) */
+.burger-menu.open .line1 {
+    transform: rotate(45deg);
+}
+
+.burger-menu.open .line2 {
+    opacity: 0; /* Hide middle line */
+}
+
+.burger-menu.open .line3 {
+    transform: rotate(-45deg);
+}
+
+
+/* Media Query for Smaller Devices (Mobile Layout) */
 @media (max-width: 768px) {
     .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem 1.5rem;
-        min-height: unset; /* Allow height to adjust on mobile */
+        flex-direction: row; /* Keep brand and burger on one row */
+        justify-content: space-between; /* Push brand and burger apart */
+        align-items: center;
+        padding: 0.8rem 1.5rem;
+        min-height: 50px;
+    }
+
+    .burger-menu {
+        display: flex; /* Show burger menu on mobile */
     }
 
     .navbar-links {
+        /* Mobile menu styling */
         flex-direction: column;
+        position: fixed; /* Overlay the screen */
+        top: 0; /* Position from top of screen */
+        left: 0;
         width: 100%;
-        gap: 0.5rem;
-        margin-top: 1rem;
+        height: 100vh; /* Full viewport height */
+        background-color: rgba(255, 255, 255, 0.95); /* Semi-transparent white overlay */
+        padding: 5rem 1.5rem 1rem; /* Adjust padding to clear fixed navbar */
+        transform: translateX(100%); /* Start off-screen to the right (hidden) */
+        transition: transform 0.4s ease-in-out; /* Smooth slide-in/out */
+        z-index: 999; /* Below burger icon but above content */
+        justify-content: flex-start; /* Align items from top */
+        align-items: center; /* Center items horizontally */
+        gap: 1.5rem; /* Space between mobile menu items */
+        box-shadow: 0 0 20px rgba(0,0,0,0.2); /* Soft shadow for the overlay menu */
+        overflow-y: auto; /* Enable scrolling for long menus */
     }
 
-    .nav-item, .nav-button-primary, .nav-button {
-        width: 100%;
+    .navbar-links.open {
+        transform: translateX(0); /* Slide in from right when open */
+    }
+
+    .nav-item,
+    .nav-button-primary,
+    .nav-button {
+        width: 80%; /* Make nav items wider in mobile menu */
         text-align: center;
-        padding: 0.75rem 1rem;
+        padding: 0.8rem 1rem;
+        font-size: 1.1rem;
+        border: 1px solid #eee; /* Add subtle border for definition */
+        background-color: #f8f9fa; /* Light background for items */
+    }
+    
+    .nav-button-primary {
+        background-color: #007bff; /* Keep primary button distinct */
+        color: white;
+    }
+
+    .nav-button {
+        background-color: #f8d7da; /* Light red background for logout */
+        color: #dc3545;
+    }
+}
+
+/* Smaller mobile devices (adjust if needed, usually managed by 768px) */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0.8rem 1rem;
+    }
+    .navbar-brand {
+        font-size: 1.6rem;
+    }
+    .burger-menu {
+        width: 25px;
+        height: 20px;
+    }
+    .navbar-links {
+        padding: 4rem 1rem 1rem; /* Adjust padding for smaller screens */
+    }
+    .nav-item,
+    .nav-button-primary,
+    .nav-button {
+        font-size: 1rem;
+        padding: 0.7rem;
     }
 }
