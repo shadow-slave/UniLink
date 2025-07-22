@@ -199,7 +199,7 @@
 }
 
 .signup-prompt a {
-  color: var(--primary-color);
+  color: rgb(80, 134, 214);
   text-decoration: none;
   font-weight: 600;
   transition: color 0.3s ease, text-shadow 0.3s ease; /* Add text-shadow transition */
