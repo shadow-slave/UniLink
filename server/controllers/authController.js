@@ -84,3 +84,28 @@ export const getUserProfile = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch user profile." });
   }
 };
+
+
+// NEW: Update authenticated user's profile
+export const updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.userId; // User ID from authMiddleware
+    const { bio, department, profileImage } = req.body; // Data to update
+
+    // Find the user by ID and update their profile fields
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { bio, department, profileImage }, // Fields to update
+      { new: true, runValidators: true } // Return the updated document, run schema validators
+    ).select('-password'); // Exclude password from the response
+
+    if (!updatedUser) {
+      return res.status(404).json({ error: 'User not found.' });
+    }
+
+    res.status(200).json({ message: 'Profile updated successfully', user: updatedUser });
+  } catch (err) {
+    console.error('Error updating user profile:', err);
+    res.status(500).json({ error: 'Failed to update profile.' });
+  }
+};

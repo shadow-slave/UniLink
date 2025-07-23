@@ -13,6 +13,7 @@ const Register = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false); // New state to track if message is an error
   const navigate = useNavigate(); // Initialize useNavigate for redirection
+  const [showPassword, setShowPassword] = useState(false); 
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -24,12 +25,19 @@ const Register = () => {
   // Form validation to enable/disable button
   const isFormValid = formData.name && formData.email && formData.password;
 
+  
+  const togglePasswordVisibility = () => {
+    setShowPassword((prevShowPassword) => !prevShowPassword);
+  };
+
+
   const handleChange = (e) => {
     setFormData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,10 +107,10 @@ const Register = () => {
               aria-label="Email address"
             />
           </div>
-          <div className="input-group">
+          <div className="input-group password-input-group">
             <label htmlFor="password">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               id="password"
               name="password"
               placeholder="Create a password"
@@ -111,6 +119,26 @@ const Register = () => {
               required
               aria-label="Create a password"
             />
+            <button
+              type="button"
+              className="password-toggle-btn"
+              onClick={togglePasswordVisibility}
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? (
+                <img
+                  src="/icons/eye-closed.png"
+                  alt="Hide password"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              ) : (
+                <img
+                  src="/icons/eye-open.png"
+                  alt="Show password"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              )}
+            </button>
           </div>
           <button
             type="submit"
