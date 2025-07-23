@@ -168,3 +168,34 @@ export const getMyComments = async (req, res) => {
     res.status(500).json({ error: "Failed to fetch your comments." });
   }
 };
+
+
+export const deletePost = async (req, res) => {
+  try {
+    const { id } = req.params; // Post ID from URL
+    const userId = req.userId; // Authenticated User ID from authMiddleware
+
+    const post = await Post.findById(id);
+
+    if (!post) {
+      return res.status(404).json({ error: "Post not found." });
+    }
+
+    // Crucial authorization check: Ensure the authenticated user is the author of the post
+    if (post.author.toString() !== userId.toString()) {
+      return res
+        .status(403)
+        .json({ error: "Unauthorized: You can only delete your own posts." });
+    }
+
+    await post.deleteOne(); // Delete the post from the database
+
+    // Optional: Delete all comments associated with this post
+    await Comment.deleteMany({ post: id });
+
+    res.status(200).json({ message: "Post deleted successfully." });
+  } catch (err) {
+    console.error("Error deleting post:", err);
+    res.status(500).json({ error: "Failed to delete post." });
+  }
+};

@@ -36,3 +36,5 @@ export const fetchCommentsForPost = (postId) =>
 // API calls for user's own posts and comments
 export const fetchMyPosts = () => API.get("/posts/my-posts");
 export const fetchMyComments = () => API.get("/posts/my-comments");
+// Delete a post
+export const deletePost = (postId) => API.delete(`/posts/${postId}`);

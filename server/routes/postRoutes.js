@@ -8,6 +8,7 @@ import {
   getCommentsForPost,
   getMyPosts, 
   getMyComments,
+  deletePost
 } from "../controllers/postController.js";
 import authMiddleware from "../middleware/authMiddleware.js"; // Import authentication middleware
 
@@ -29,5 +30,8 @@ router.get("/:id/comments", getCommentsForPost); // Get comments for a post (pub
 
 router.get("/my-posts", authMiddleware, getMyPosts);     // Get posts by the authenticated user
 router.get("/my-comments", authMiddleware, getMyComments); // Get comments by the authenticated user
+
+// Delete post route (protected and only author can delete)
+router.delete("/:id", authMiddleware, deletePost);
 
 export default router;

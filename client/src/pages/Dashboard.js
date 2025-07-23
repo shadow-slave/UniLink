@@ -2,12 +2,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-// Import fetchCommentsForPost for individual post comment fetching
 import {
   fetchMyPosts,
   fetchMyComments,
   fetchCommentsForPost,
-} from "../services/postService";
+  deletePost,
+} from "../services/postService"; // Import deletePost
 import { updateUserProfile as updateAuthProfile } from "../services/authService";
 import "../styles/Dashboard.css";
 
@@ -33,9 +33,11 @@ const Dashboard = () => {
   const [isUpdateError, setIsUpdateError] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  // NEW STATES FOR INLINE COMMENTS ON DASHBOARD POSTS
-  const [dashboardCommentsVisible, setDashboardCommentsVisible] = useState({}); // Toggles visibility per post
-  const [dashboardPostComments, setDashboardPostComments] = useState({}); // Stores fetched comments per post
+  // States for inline comments on Dashboard posts
+  const [dashboardCommentsVisible, setDashboardCommentsVisible] = useState({});
+  const [dashboardPostComments, setDashboardPostComments] = useState({});
+  const [deleteMessage, setDeleteMessage] = useState(""); // NEW: State for delete feedback
+  const [isDeleteError, setIsDeleteError] = useState(false); // NEW: State for delete error
 
   // Function to fetch user profile details
   const fetchUserProfile = async () => {
@@ -70,7 +72,7 @@ const Dashboard = () => {
   const fetchUsersPosts = async () => {
     try {
       const postsRes = await fetchMyPosts();
-      setMyPosts(postsRes.data.myPosts); // Now 'myPosts' will have commentCount for each post
+      setMyPosts(postsRes.data.myPosts);
     } catch (err) {
       console.error("Failed to fetch user's posts:", err);
       setErrorPosts(err.response?.data?.error || "Failed to load your posts.");
@@ -94,21 +96,19 @@ const Dashboard = () => {
     }
   };
 
-  // NEW: Function to toggle comments visibility and fetch them for a specific post on Dashboard
+  // Function to toggle comments visibility and fetch them for a specific post on Dashboard
   const toggleDashboardPostComments = async (postId) => {
-    // Toggle visibility first
     setDashboardCommentsVisible((prev) => ({
       ...prev,
       [postId]: !prev[postId],
     }));
 
-    // If comments are about to be shown and not yet loaded for this post
     if (!dashboardCommentsVisible[postId] && !dashboardPostComments[postId]) {
       try {
         const res = await fetchCommentsForPost(postId);
         setDashboardPostComments((prev) => ({
           ...prev,
-          [postId]: res.data.comments, // Store comments for this post
+          [postId]: res.data.comments,
         }));
       } catch (err) {
         console.error(
@@ -116,6 +116,30 @@ const Dashboard = () => {
           err
         );
         alert("Failed to load comments for this post.");
+      }
+    }
+  };
+
+  // NEW: Handle post deletion
+  const handleDeletePost = async (postId) => {
+    if (
+      window.confirm(
+        "Are you sure you want to delete this post? This action cannot be undone."
+      )
+    ) {
+      setDeleteMessage(""); // Clear previous messages
+      setIsDeleteError(false);
+      try {
+        const res = await deletePost(postId); // Call deletePost from postService
+        setDeleteMessage(res.data.message || "Post deleted successfully!");
+        // Filter out the deleted post from the local state
+        setMyPosts((prevPosts) =>
+          prevPosts.filter((post) => post._id !== postId)
+        );
+      } catch (err) {
+        console.error("Error deleting post:", err);
+        setDeleteMessage(err.response?.data?.error || "Failed to delete post.");
+        setIsDeleteError(true);
       }
     }
   };
@@ -277,6 +301,13 @@ const Dashboard = () => {
           )}
         </div>
 
+        {/* Delete Post Message */}
+        {deleteMessage && (
+          <p className={isDeleteError ? "message-error" : "message-success"}>
+            {deleteMessage}
+          </p>
+        )}
+
         {/* User's Posts Section */}
         <section className="dashboard-sections my-posts-section">
           <h3>Your Recent Posts</h3>
@@ -288,11 +319,23 @@ const Dashboard = () => {
             <div className="my-items-list">
               {myPosts.map((post) => (
                 <div key={post._id} className="my-item-card post-item">
-                  <h4>
-                    <Link to={`/feed#${post._id}`} className="post-link">
-                      {post.title}
-                    </Link>
-                  </h4>
+                  <div className="post-item-header">
+                    <h4>
+                      <Link to={`/feed#${post._id}`} className="post-link">
+                        {post.title}
+                      </Link>
+                    </h4>
+                    <button
+                      className="delete-post-button"
+                      onClick={() => handleDeletePost(post._id)}
+                    >
+                      <img
+                        src="/icons/delete.png"
+                        alt="Delete post"
+                        style={{ width: "20px", height: "20px" }}
+                      />
+                    </button>
+                  </div>
                   <p className="item-content">
                     {post.content.substring(0, 100)}
                     {post.content.length > 100 ? "..." : ""}
@@ -301,7 +344,7 @@ const Dashboard = () => {
                     {post.likes.length} Likes | {post.commentCount} Comments |{" "}
                     {new Date(post.createdAt).toLocaleDateString()}
                   </small>
-                  {/* NEW: Toggle Comments Button and Section for Dashboard Posts */}
+                  {/* Toggle Comments Button and Section for Dashboard Posts */}
                   <div className="dashboard-post-actions">
                     <button
                       className="comment-toggle-button"
